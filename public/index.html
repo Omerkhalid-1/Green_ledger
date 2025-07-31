@@ -10,7 +10,7 @@
         :root {
             --primary-green: #2d8653;
             --light-green: #4ade80;
-            --dark-green: #3a7150;
+            --dark-green: #166534;
             --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         }
 
@@ -37,10 +37,14 @@
         .nav-link {
             color: white !important;
             font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
 
-        .nav-link:hover {
+        .nav-link:hover, .nav-link.active {
             color: var(--light-green) !important;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
         }
 
         .btn-primary {
@@ -77,25 +81,6 @@
             opacity: 0.9;
         }
 
-        .stats-card {
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 15px;
-            padding: 30px;
-            margin: 15px;
-            text-align: center;
-            transition: transform 0.3s ease;
-        }
-
-        .stats-card:hover {
-            transform: translateY(-10px);
-        }
-
-        .stats-number {
-            font-size: 2.5rem;
-            font-weight: 800;
-            color: var(--primary-green);
-        }
-
         .feature-card {
             background: white;
             border-radius: 15px;
@@ -109,27 +94,6 @@
         .feature-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-        }
-
-        .feature-icon {
-            width: 80px;
-            height: 80px;
-            background: var(--light-green);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            color: white;
-            margin: 0 auto 20px;
-        }
-
-        .esg-form {
-            background: white;
-            border-radius: 20px;
-            padding: 40px;
-            margin: 20px 0;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
         }
 
         .form-control, .form-select {
@@ -159,9 +123,9 @@
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
         }
 
-        .badge-environmental { background: #059669; }
-        .badge-social { background: #dc2626; }
-        .badge-governance { background: #7c3aed; }
+        .badge-environmental { background-color: #059669 !important; }
+        .badge-social { background-color: #dc2626 !important; }
+        .badge-governance { background-color: #7c3aed !important; }
 
         .blockchain-hash {
             font-family: 'Courier New', monospace;
@@ -171,6 +135,7 @@
             font-size: 0.8rem;
             color: #64748b;
             border: 1px solid #e2e8f0;
+            word-break: break-all;
         }
 
         .dashboard-metric {
@@ -188,31 +153,33 @@
             color: var(--primary-green);
         }
 
-        .tab-content {
-            background: white;
-            border-radius: 15px;
-            padding: 30px;
-            margin-top: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        .section-content {
+            padding-top: 20px;
         }
 
-        .nav-pills .nav-link {
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
             color: #64748b;
-            border-radius: 10px;
-            padding: 12px 20px;
-            margin: 0 5px;
-            transition: all 0.3s ease;
         }
 
-        .nav-pills .nav-link.active {
-            background: var(--primary-green);
-            color: white;
+        .empty-state i {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 300px;
+            margin: 20px 0;
         }
 
         @media (max-width: 768px) {
             .hero-title { font-size: 2.5rem; }
             .hero-subtitle { font-size: 1.1rem; }
-            .stats-card { margin: 10px 0; }
+            .navbar-nav { background: rgba(0,0,0,0.1); border-radius: 10px; padding: 10px; margin-top: 10px; }
+            .chart-container { height: 250px; }
         }
     </style>
 </head>
@@ -220,7 +187,7 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
         <div class="container">
-            <a class="navbar-brand fw-bold" href="#">
+            <a class="navbar-brand fw-bold" href="#" onclick="showSection('home')">
                 <i class="fas fa-leaf me-2"></i>Green Ledger
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -228,29 +195,47 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="#dashboard">Dashboard</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#companies">Companies</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#esg-activities">ESG Activities</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#reports">Reports</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="showSection('dashboard')" id="nav-dashboard">
+                            <i class="fas fa-chart-line me-1"></i>Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="showSection('companies')" id="nav-companies">
+                            <i class="fas fa-building me-1"></i>Companies
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="showSection('esg-activities')" id="nav-esg-activities">
+                            <i class="fas fa-leaf me-1"></i>ESG Activities
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="showSection('reports')" id="nav-reports">
+                            <i class="fas fa-file-alt me-1"></i>Reports
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section class="hero-section" id="home">
+    <section class="hero-section" id="home-section">
         <div class="container">
             <h1 class="hero-title">🌿 Green Ledger</h1>
             <p class="hero-subtitle">
                 Blockchain-Backed ESG Compliance & Reporting Tool<br>
                 <strong>for Pakistani Corporates</strong>
             </p>
-            <button class="btn btn-primary btn-lg me-3" onclick="showSection('dashboard')">
-                <i class="fas fa-chart-line me-2"></i>View Dashboard
-            </button>
-            <button class="btn btn-outline-light btn-lg" onclick="showSection('companies')">
-                <i class="fas fa-building me-2"></i>Manage Companies
-            </button>
+            <div class="d-flex justify-content-center gap-3 flex-wrap">
+                <button class="btn btn-primary btn-lg" onclick="showSection('dashboard')">
+                    <i class="fas fa-chart-line me-2"></i>View Dashboard
+                </button>
+                <button class="btn btn-outline-light btn-lg" onclick="showSection('companies')">
+                    <i class="fas fa-building me-2"></i>Manage Companies
+                </button>
+            </div>
         </div>
     </section>
 
@@ -258,30 +243,37 @@
     <div class="container my-5" style="margin-top: 100px !important;">
         
         <!-- Dashboard Section -->
-        <div id="dashboard-section" class="section-content">
+        <div id="dashboard-section" class="section-content" style="display: none;">
             <div class="glass-card p-4 mb-4">
-                <h2 class="text-primary mb-4"><i class="fas fa-chart-line me-2"></i>ESG Dashboard</h2>
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2 class="text-primary mb-0">
+                        <i class="fas fa-chart-line me-2"></i>ESG Dashboard
+                    </h2>
+                    <button class="btn btn-outline-primary btn-sm" onclick="refreshDashboard()">
+                        <i class="fas fa-sync-alt me-1"></i>Refresh
+                    </button>
+                </div>
                 
                 <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-md-3 col-6">
                         <div class="dashboard-metric">
                             <div class="metric-value" id="total-companies">0</div>
                             <div class="text-muted">Companies</div>
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-3 col-6">
                         <div class="dashboard-metric">
                             <div class="metric-value" id="total-activities">0</div>
                             <div class="text-muted">ESG Activities</div>
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-3 col-6">
                         <div class="dashboard-metric">
                             <div class="metric-value" id="avg-esg-score">0</div>
                             <div class="text-muted">Avg ESG Score</div>
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-3 col-6">
                         <div class="dashboard-metric">
                             <div class="metric-value" id="verified-activities">0</div>
                             <div class="text-muted">Verified</div>
@@ -291,10 +283,18 @@
 
                 <div class="row mt-4">
                     <div class="col-md-6">
-                        <canvas id="esgCategoryChart" width="400" height="200"></canvas>
+                        <div class="glass-card p-3">
+                            <div class="chart-container">
+                                <canvas id="esgCategoryChart"></canvas>
+                            </div>
+                        </div>
                     </div>
                     <div class="col-md-6">
-                        <canvas id="monthlyTrendChart" width="400" height="200"></canvas>
+                        <div class="glass-card p-3">
+                            <div class="chart-container">
+                                <canvas id="monthlyTrendChart"></canvas>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -303,14 +303,20 @@
         <!-- Companies Section -->
         <div id="companies-section" class="section-content" style="display: none;">
             <div class="glass-card p-4 mb-4">
-                <h2 class="text-primary mb-4"><i class="fas fa-building me-2"></i>Company Management</h2>
+                <h2 class="text-primary mb-4">
+                    <i class="fas fa-building me-2"></i>Company Management
+                </h2>
                 
                 <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addCompanyModal">
                     <i class="fas fa-plus me-2"></i>Add New Company
                 </button>
                 
                 <div id="companies-list">
-                    <!-- Companies will be loaded here -->
+                    <div class="empty-state">
+                        <i class="fas fa-building"></i>
+                        <h4>No Companies Yet</h4>
+                        <p>Start by adding your first company to track ESG activities</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -318,10 +324,17 @@
         <!-- ESG Activities Section -->
         <div id="esg-activities-section" class="section-content" style="display: none;">
             <div class="glass-card p-4 mb-4">
-                <h2 class="text-primary mb-4"><i class="fas fa-leaf me-2"></i>ESG Activities</h2>
+                <h2 class="text-primary mb-4">
+                    <i class="fas fa-leaf me-2"></i>ESG Activities
+                </h2>
                 
                 <div class="row mb-3">
-                    <div class="col-md-4">
+                    <div class="col-md-4 mb-2">
+                        <select class="form-select" id="filter-company">
+                            <option value="">All Companies</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4 mb-2">
                         <select class="form-select" id="filter-category">
                             <option value="">All Categories</option>
                             <option value="environmental">Environmental</option>
@@ -329,15 +342,19 @@
                             <option value="governance">Governance</option>
                         </select>
                     </div>
-                    <div class="col-md-4">
-                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addActivityModal">
+                    <div class="col-md-4 mb-2">
+                        <button class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#addActivityModal">
                             <i class="fas fa-plus me-2"></i>Add ESG Activity
                         </button>
                     </div>
                 </div>
                 
                 <div id="activities-list">
-                    <!-- Activities will be loaded here -->
+                    <div class="empty-state">
+                        <i class="fas fa-leaf"></i>
+                        <h4>No ESG Activities Yet</h4>
+                        <p>Start logging your environmental, social, and governance activities</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -345,33 +362,39 @@
         <!-- Reports Section -->
         <div id="reports-section" class="section-content" style="display: none;">
             <div class="glass-card p-4 mb-4">
-                <h2 class="text-primary mb-4"><i class="fas fa-file-alt me-2"></i>ESG Reports</h2>
+                <h2 class="text-primary mb-4">
+                    <i class="fas fa-file-alt me-2"></i>ESG Reports
+                </h2>
                 
                 <div class="row mb-3">
-                    <div class="col-md-4">
+                    <div class="col-md-4 mb-2">
                         <select class="form-select" id="report-company">
                             <option value="">Select Company</option>
                         </select>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-3 mb-2">
                         <select class="form-select" id="report-framework">
                             <option value="GRI">GRI Standards</option>
                             <option value="SASB">SASB</option>
                             <option value="TCFD">TCFD</option>
                         </select>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-3 mb-2">
                         <input type="text" class="form-control" id="report-period" placeholder="Period (e.g., 2024)" value="2024">
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-2 mb-2">
                         <button class="btn btn-primary w-100" onclick="generateReport()">
-                            <i class="fas fa-chart-bar me-2"></i>Generate
+                            <i class="fas fa-chart-bar me-1"></i>Generate
                         </button>
                     </div>
                 </div>
                 
                 <div id="reports-list">
-                    <!-- Reports will be loaded here -->
+                    <div class="empty-state">
+                        <i class="fas fa-file-alt"></i>
+                        <h4>No Reports Generated</h4>
+                        <p>Generate your first ESG compliance report</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -390,7 +413,7 @@
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">Company Name *</label>
-                                <input type="text" class="form-control" name="name" required>
+                                <input type="text" class="form-control" name="name" required placeholder="e.g., Pak Textiles Ltd">
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">Industry *</label>
@@ -519,22 +542,38 @@
         let companies = [];
         let activities = [];
         let reports = [];
+        let currentCharts = {};
 
         // Initialize app
         document.addEventListener('DOMContentLoaded', function() {
+            console.log('🌿 Green Ledger initializing...');
             loadData();
-            showSection('dashboard');
+            showSection('home');
         });
 
-        // Navigation
+        // Enhanced Navigation with active states
         function showSection(sectionName) {
+            console.log(`📱 Navigating to section: ${sectionName}`);
+            
             // Hide all sections
-            document.querySelectorAll('.section-content').forEach(section => {
+            document.querySelectorAll('.section-content, #home-section').forEach(section => {
                 section.style.display = 'none';
             });
             
+            // Remove active class from all nav links
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            
             // Show selected section
-            document.getElementById(sectionName + '-section').style.display = 'block';
+            if (sectionName === 'home') {
+                document.getElementById('home-section').style.display = 'block';
+            } else {
+                document.getElementById(sectionName + '-section').style.display = 'block';
+                // Add active class to current nav link
+                const navLink = document.getElementById('nav-' + sectionName);
+                if (navLink) navLink.classList.add('active');
+            }
             
             // Load section-specific data
             switch(sectionName) {
@@ -551,27 +590,40 @@
                     loadReports();
                     break;
             }
+            
+            // Collapse mobile menu
+            const navbarCollapse = document.getElementById('navbarNav');
+            if (navbarCollapse.classList.contains('show')) {
+                bootstrap.Collapse.getInstance(navbarCollapse).hide();
+            }
         }
 
-        // Load initial data
+        // Enhanced data loading with error handling
         async function loadData() {
             try {
+                console.log('📊 Loading application data...');
                 const [companiesRes, activitiesRes] = await Promise.all([
                     fetch('/api/companies'),
                     fetch('/api/esg-activities')
                 ]);
                 
+                if (!companiesRes.ok || !activitiesRes.ok) {
+                    throw new Error('Failed to fetch data from server');
+                }
+                
                 companies = await companiesRes.json();
                 activities = await activitiesRes.json();
                 
+                console.log(`✅ Loaded ${companies.length} companies and ${activities.length} activities`);
+                
                 updateSelects();
             } catch (error) {
-                console.error('Error loading data:', error);
-                showAlert('Error loading data', 'danger');
+                console.error('❌ Error loading data:', error);
+                showAlert('Error loading data. Please check if the server is running.', 'danger');
             }
         }
 
-        // Update select dropdowns
+        // Enhanced select dropdown updates
         function updateSelects() {
             const companySelects = [
                 'filter-company', 
@@ -583,10 +635,15 @@
                 const select = document.getElementById(selectId);
                 if (select) {
                     const currentValue = select.value;
-                    select.innerHTML = selectId.includes('filter') || selectId.includes('report') ? 
-                        '<option value="">All Companies</option>' : 
-                        '<option value="">Select Company</option>';
                     
+                    // Clear and add default option
+                    if (selectId.includes('filter') || selectId.includes('report')) {
+                        select.innerHTML = '<option value="">All Companies</option>';
+                    } else {
+                        select.innerHTML = '<option value="">Select Company</option>';
+                    }
+                    
+                    // Add company options
                     companies.forEach(company => {
                         const option = document.createElement('option');
                         option.value = company.id;
@@ -594,14 +651,17 @@
                         select.appendChild(option);
                     });
                     
+                    // Restore previous selection
                     select.value = currentValue;
                 }
             });
         }
 
-        // Dashboard functions
+        // Enhanced dashboard with real-time updates
         async function loadDashboard() {
             try {
+                console.log('📈 Loading dashboard...');
+                
                 // Update metrics
                 document.getElementById('total-companies').textContent = companies.length;
                 document.getElementById('total-activities').textContent = activities.length;
@@ -622,13 +682,24 @@
                 const avgScore = companiesWithActivities > 0 ? Math.round(totalScore / companiesWithActivities) : 0;
                 document.getElementById('avg-esg-score').textContent = avgScore;
                 
-                // Create charts
+                // Create or update charts
                 createCategoryChart();
                 createTrendChart();
                 
+                console.log('✅ Dashboard loaded successfully');
+                
             } catch (error) {
-                console.error('Error loading dashboard:', error);
+                console.error('❌ Error loading dashboard:', error);
+                showAlert('Error loading dashboard data', 'danger');
             }
+        }
+
+        function refreshDashboard() {
+            console.log('🔄 Refreshing dashboard...');
+            loadData().then(() => {
+                loadDashboard();
+                showAlert('Dashboard refreshed successfully!', 'success');
+            });
         }
 
         function calculateESGScore(activities) {
@@ -653,7 +724,13 @@
         }
 
         function createCategoryChart() {
-            const ctx = document.getElementById('esgCategoryChart').getContext('2d');
+            const ctx = document.getElementById('esgCategoryChart');
+            if (!ctx) return;
+            
+            // Destroy existing chart
+            if (currentCharts.category) {
+                currentCharts.category.destroy();
+            }
             
             const categoryData = {
                 environmental: activities.filter(a => a.category === 'environmental').length,
@@ -661,7 +738,7 @@
                 governance: activities.filter(a => a.category === 'governance').length
             };
             
-            new Chart(ctx, {
+            currentCharts.category = new Chart(ctx, {
                 type: 'doughnut',
                 data: {
                     labels: ['Environmental', 'Social', 'Governance'],
@@ -673,6 +750,7 @@
                 },
                 options: {
                     responsive: true,
+                    maintainAspectRatio: false,
                     plugins: {
                         title: {
                             display: true,
@@ -687,7 +765,13 @@
         }
 
         function createTrendChart() {
-            const ctx = document.getElementById('monthlyTrendChart').getContext('2d');
+            const ctx = document.getElementById('monthlyTrendChart');
+            if (!ctx) return;
+            
+            // Destroy existing chart
+            if (currentCharts.trend) {
+                currentCharts.trend.destroy();
+            }
             
             // Get monthly trend data
             const monthlyData = {};
@@ -699,7 +783,7 @@
             const labels = Object.keys(monthlyData).sort();
             const data = labels.map(label => monthlyData[label]);
             
-            new Chart(ctx, {
+            currentCharts.trend = new Chart(ctx, {
                 type: 'line',
                 data: {
                     labels: labels,
@@ -714,6 +798,7 @@
                 },
                 options: {
                     responsive: true,
+                    maintainAspectRatio: false,
                     plugins: {
                         title: {
                             display: true,
@@ -729,13 +814,23 @@
             });
         }
 
-        // Companies functions
+        // Enhanced companies management
         function loadCompanies() {
+            console.log('🏢 Loading companies...');
             const container = document.getElementById('companies-list');
             container.innerHTML = '';
             
             if (companies.length === 0) {
-                container.innerHTML = '<div class="text-center text-muted py-5">No companies registered yet. Add your first company!</div>';
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-building"></i>
+                        <h4>No Companies Yet</h4>
+                        <p>Start by adding your first company to track ESG activities</p>
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addCompanyModal">
+                            <i class="fas fa-plus me-2"></i>Add First Company
+                        </button>
+                    </div>
+                `;
                 return;
             }
             
@@ -748,25 +843,50 @@
                 card.innerHTML = `
                     <div class="row align-items-center">
                         <div class="col-md-8">
-                            <h5 class="mb-2">${company.name}</h5>
-                            <p class="text-muted mb-2">${company.industry} • ${company.location || 'Pakistan'}</p>
+                            <h5 class="mb-2">
+                                <i class="fas fa-building text-primary me-2"></i>${company.name}
+                            </h5>
+                            <p class="text-muted mb-2">
+                                <i class="fas fa-industry me-1"></i>${company.industry || 'N/A'} • 
+                                <i class="fas fa-map-marker-alt me-1"></i>${company.location || 'Pakistan'}
+                            </p>
                             <p class="mb-0">${company.description || 'No description available'}</p>
+                            <small class="text-muted">
+                                <i class="fas fa-calendar me-1"></i>Added: ${new Date(company.created_at).toLocaleDateString()}
+                            </small>
                         </div>
                         <div class="col-md-4 text-end">
                             <div class="mb-2">
-                                <span class="badge bg-primary">ESG Score: ${esgScore}</span>
+                                <span class="badge bg-primary fs-6">ESG Score: ${esgScore}</span>
                             </div>
                             <div class="mb-2">
                                 <span class="badge bg-secondary">${companyActivities.length} Activities</span>
                             </div>
+                            <div class="mb-2">
+                                <span class="badge bg-success">${company.esg_framework || 'GRI'}</span>
+                            </div>
                             <div>
-                                <span class="badge bg-success">${company.esg_framework}</span>
+                                <button class="btn btn-sm btn-outline-primary" onclick="viewCompanyDetails('${company.id}')">
+                                    <i class="fas fa-eye me-1"></i>View Details
+                                </button>
                             </div>
                         </div>
                     </div>
                 `;
                 container.appendChild(card);
             });
+            
+            console.log(`✅ Loaded ${companies.length} companies`);
+        }
+
+        function viewCompanyDetails(companyId) {
+            const company = companies.find(c => c.id === companyId);
+            const companyActivities = activities.filter(a => a.company_id === companyId);
+            
+            if (company) {
+                console.log(`👁️ Viewing details for: ${company.name}`);
+                showAlert(`${company.name} has ${companyActivities.length} ESG activities with an ESG score of ${calculateESGScore(companyActivities)}`, 'info');
+            }
         }
 
         async function addCompany() {
@@ -774,7 +894,15 @@
             const formData = new FormData(form);
             const data = Object.fromEntries(formData);
             
+            // Validation
+            if (!data.name || !data.industry) {
+                showAlert('Please fill in all required fields', 'warning');
+                return;
+            }
+            
             try {
+                console.log('➕ Adding new company:', data.name);
+                
                 const response = await fetch('/api/companies', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -788,18 +916,20 @@
                     loadCompanies();
                     form.reset();
                     bootstrap.Modal.getInstance(document.getElementById('addCompanyModal')).hide();
-                    showAlert('Company added successfully!', 'success');
+                    showAlert(`Company "${newCompany.name}" added successfully!`, 'success');
+                    console.log('✅ Company added successfully');
                 } else {
                     throw new Error('Failed to add company');
                 }
             } catch (error) {
-                console.error('Error adding company:', error);
-                showAlert('Error adding company', 'danger');
+                console.error('❌ Error adding company:', error);
+                showAlert('Error adding company. Please try again.', 'danger');
             }
         }
 
-        // Activities functions
+        // Enhanced ESG activities management
         function loadActivities() {
+            console.log('🌱 Loading ESG activities...');
             const container = document.getElementById('activities-list');
             container.innerHTML = '';
             
@@ -818,9 +948,31 @@
             }
             
             if (filteredActivities.length === 0) {
-                container.innerHTML = '<div class="text-center text-muted py-5">No ESG activities found. Add your first activity!</div>';
+                const emptyMessage = activities.length === 0 ? 
+                    'No ESG activities yet. Start logging your sustainability efforts!' :
+                    'No activities match your current filters.';
+                
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-leaf"></i>
+                        <h4>No Activities Found</h4>
+                        <p>${emptyMessage}</p>
+                        ${companies.length > 0 ? `
+                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addActivityModal">
+                                <i class="fas fa-plus me-2"></i>Add First Activity
+                            </button>
+                        ` : `
+                            <button class="btn btn-outline-primary" onclick="showSection('companies')">
+                                <i class="fas fa-building me-2"></i>Add Company First
+                            </button>
+                        `}
+                    </div>
+                `;
                 return;
             }
+            
+            // Sort by date (newest first)
+            filteredActivities.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
             
             filteredActivities.forEach(activity => {
                 const company = companies.find(c => c.id === activity.company_id);
@@ -828,18 +980,28 @@
                 card.className = 'activity-card';
                 card.innerHTML = `
                     <div class="d-flex justify-content-between align-items-start mb-2">
-                        <h6 class="mb-0">${activity.title}</h6>
+                        <h6 class="mb-0">
+                            <i class="fas fa-leaf text-success me-2"></i>${activity.title}
+                        </h6>
                         <span class="badge badge-${activity.category}">${activity.category.toUpperCase()}</span>
                     </div>
-                    <p class="text-muted mb-2">${company ? company.name : 'Unknown Company'}</p>
+                    <p class="text-muted mb-2">
+                        <i class="fas fa-building me-1"></i>${company ? company.name : 'Unknown Company'}
+                    </p>
                     <p class="mb-2">${activity.description}</p>
+                    ${activity.metrics ? `<p class="mb-2"><strong>Metrics:</strong> ${activity.metrics}</p>` : ''}
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <small class="text-muted">
                                 <i class="fas fa-star me-1"></i>Impact Score: ${activity.impact_score || 'N/A'}/10
                             </small>
                         </div>
-                        <div class="col-md-6 text-end">
+                        <div class="col-md-4">
+                            <small class="text-muted">
+                                <i class="fas fa-money-bill me-1"></i>Investment: ${activity.investment_amount ? 'PKR ' + activity.investment_amount.toLocaleString() : 'N/A'}
+                            </small>
+                        </div>
+                        <div class="col-md-4 text-end">
                             <small class="text-muted">
                                 <i class="fas fa-calendar me-1"></i>${new Date(activity.created_at).toLocaleDateString()}
                             </small>
@@ -847,13 +1009,17 @@
                     </div>
                     ${activity.hash ? `
                         <div class="mt-2">
-                            <small class="text-muted d-block mb-1">Blockchain Hash:</small>
-                            <div class="blockchain-hash">${activity.hash.substring(0, 32)}...</div>
+                            <small class="text-muted d-block mb-1">
+                                <i class="fas fa-shield-alt me-1"></i>Blockchain Hash:
+                            </small>
+                            <div class="blockchain-hash">${activity.hash}</div>
                         </div>
                     ` : ''}
                 `;
                 container.appendChild(card);
             });
+            
+            console.log(`✅ Loaded ${filteredActivities.length} activities (${filteredActivities.length !== activities.length ? 'filtered' : 'total'})`);
         }
 
         async function addActivity() {
@@ -861,11 +1027,19 @@
             const formData = new FormData(form);
             const data = Object.fromEntries(formData);
             
+            // Validation
+            if (!data.company_id || !data.category || !data.title || !data.description) {
+                showAlert('Please fill in all required fields', 'warning');
+                return;
+            }
+            
             // Convert numeric fields
             if (data.impact_score) data.impact_score = parseInt(data.impact_score);
             if (data.investment_amount) data.investment_amount = parseFloat(data.investment_amount);
             
             try {
+                console.log('➕ Adding new ESG activity:', data.title);
+                
                 const response = await fetch('/api/esg-activities', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -874,23 +1048,43 @@
                 
                 if (response.ok) {
                     const newActivity = await response.json();
-                    activities.push(newActivity);
+                    activities.unshift(newActivity); // Add to beginning for newest first
                     loadActivities();
                     form.reset();
                     bootstrap.Modal.getInstance(document.getElementById('addActivityModal')).hide();
-                    showAlert('ESG Activity added successfully!', 'success');
+                    showAlert(`ESG Activity "${newActivity.title}" added successfully!`, 'success');
+                    console.log('✅ ESG activity added successfully');
+                    
+                    // Update dashboard if it's currently visible
+                    if (document.getElementById('dashboard-section').style.display !== 'none') {
+                        setTimeout(() => loadDashboard(), 500);
+                    }
                 } else {
                     throw new Error('Failed to add activity');
                 }
             } catch (error) {
-                console.error('Error adding activity:', error);
-                showAlert('Error adding ESG activity', 'danger');
+                console.error('❌ Error adding ESG activity:', error);
+                showAlert('Error adding ESG activity. Please try again.', 'danger');
             }
         }
 
-        // Reports functions
+        // Enhanced reports functionality
         function loadReports() {
-            // This would load existing reports - for now just show the generation interface
+            console.log('📋 Loading reports section...');
+            const container = document.getElementById('reports-list');
+            
+            if (companies.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-file-alt"></i>
+                        <h4>No Companies Available</h4>
+                        <p>Add companies first to generate ESG reports</p>
+                        <button class="btn btn-outline-primary" onclick="showSection('companies')">
+                            <i class="fas fa-building me-2"></i>Add Companies
+                        </button>
+                    </div>
+                `;
+            }
         }
 
         async function generateReport() {
@@ -903,7 +1097,17 @@
                 return;
             }
             
+            const company = companies.find(c => c.id === companyId);
+            const companyActivities = activities.filter(a => a.company_id === companyId);
+            
+            if (companyActivities.length === 0) {
+                showAlert(`No ESG activities found for ${company.name}. Add activities first.`, 'warning');
+                return;
+            }
+            
             try {
+                console.log('📊 Generating report for:', company.name);
+                
                 const response = await fetch(`/api/reports/${companyId}`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -913,18 +1117,25 @@
                 if (response.ok) {
                     const report = await response.json();
                     displayReport(report);
-                    showAlert('Report generated successfully!', 'success');
+                    showAlert(`${framework} report generated successfully for ${company.name}!`, 'success');
+                    console.log('✅ Report generated successfully');
                 } else {
                     throw new Error('Failed to generate report');
                 }
             } catch (error) {
-                console.error('Error generating report:', error);
-                showAlert('Error generating report', 'danger');
+                console.error('❌ Error generating report:', error);
+                showAlert('Error generating report. Please try again.', 'danger');
             }
         }
 
         function displayReport(report) {
             const container = document.getElementById('reports-list');
+            
+            // Remove empty state if present
+            const emptyState = container.querySelector('.empty-state');
+            if (emptyState) {
+                emptyState.remove();
+            }
             
             const reportCard = document.createElement('div');
             reportCard.className = 'glass-card p-4 mt-3';
@@ -933,25 +1144,25 @@
                     <i class="fas fa-file-alt me-2"></i>${report.framework} ESG Report - ${report.company_name}
                 </h4>
                 <div class="row mb-3">
-                    <div class="col-md-3">
+                    <div class="col-md-3 col-6">
                         <div class="text-center">
                             <div class="metric-value">${report.esg_score}</div>
                             <div class="text-muted">ESG Score</div>
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-3 col-6">
                         <div class="text-center">
                             <div class="metric-value">${report.total_activities}</div>
                             <div class="text-muted">Total Activities</div>
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-3 col-6">
                         <div class="text-center">
                             <div class="metric-value">${report.activities_by_category.environmental}</div>
                             <div class="text-muted">Environmental</div>
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-3 col-6">
                         <div class="text-center">
                             <div class="metric-value">${report.activities_by_category.social + report.activities_by_category.governance}</div>
                             <div class="text-muted">Social + Governance</div>
@@ -959,23 +1170,29 @@
                     </div>
                 </div>
                 <div class="mb-3">
-                    <small class="text-muted">Report Hash:</small>
+                    <small class="text-muted"><i class="fas fa-shield-alt me-1"></i>Report Hash:</small>
                     <div class="blockchain-hash">${report.hash}</div>
                 </div>
                 <div class="text-muted">
-                    <small>Generated on ${new Date(report.generated_at).toLocaleString()} | Period: ${report.period} | Framework: ${report.framework}</small>
+                    <small>
+                        <i class="fas fa-calendar me-1"></i>Generated on ${new Date(report.generated_at).toLocaleString()} | 
+                        Period: ${report.period} | Framework: ${report.framework}
+                    </small>
                 </div>
             `;
             
             container.insertBefore(reportCard, container.firstChild);
         }
 
-        // Utility functions
+        // Enhanced utility functions
         function showAlert(message, type = 'info') {
+            console.log(`🔔 Alert (${type}):`, message);
+            
             const alert = document.createElement('div');
             alert.className = `alert alert-${type} alert-dismissible fade show position-fixed`;
-            alert.style.cssText = 'top: 20px; right: 20px; z-index: 9999; min-width: 300px;';
+            alert.style.cssText = 'top: 80px; right: 20px; z-index: 9999; min-width: 300px; max-width: 400px;';
             alert.innerHTML = `
+                <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'danger' ? 'exclamation-triangle' : type === 'warning' ? 'exclamation-circle' : 'info-circle'} me-2"></i>
                 ${message}
                 <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
             `;
@@ -989,23 +1206,51 @@
             }, 5000);
         }
 
-        // Event listeners
-        document.getElementById('filter-company').addEventListener('change', loadActivities);
-        document.getElementById('filter-category').addEventListener('change', loadActivities);
-
-        // Navigation click handlers
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                const section = e.target.getAttribute('href').substring(1);
-                showSection(section);
-            });
+        // Event listeners for filters
+        document.getElementById('filter-company').addEventListener('change', () => {
+            console.log('🔍 Company filter changed');
+            loadActivities();
         });
+        
+        document.getElementById('filter-category').addEventListener('change', () => {
+            console.log('🔍 Category filter changed');
+            loadActivities();
+        });
+
+        // Modal event listeners
+        document.getElementById('addActivityModal').addEventListener('show.bs.modal', function () {
+            if (companies.length === 0) {
+                showAlert('Please add a company first before creating activities', 'warning');
+                return false;
+            }
+        });
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            if (e.altKey) {
+                switch(e.code) {
+                    case 'KeyD':
+                        e.preventDefault();
+                        showSection('dashboard');
+                        break;
+                    case 'KeyC':
+                        e.preventDefault();
+                        showSection('companies');
+                        break;
+                    case 'KeyA':
+                        e.preventDefault();
+                        showSection('esg-activities');
+                        break;
+                    case 'KeyR':
+                        e.preventDefault();
+                        showSection('reports');
+                        break;
+                }
+            }
+        });
+
+        console.log('🌿 Green Ledger loaded successfully!');
+        console.log('⌨️ Keyboard shortcuts: Alt+D (Dashboard), Alt+C (Companies), Alt+A (Activities), Alt+R (Reports)');
     </script>
 </body>
-</html>select" id="filter-company">
-                            <option value="">All Companies</option>
-                        </select>
-                    </div>
-                    <div class="col-md-4">
-                        <select class="form-
+</html>
