@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌿 Green Ledger - ESG Compliance & Reporting</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-green: #2d8653;
+            --light-green: #4ade80;
+            --dark-green: #166534;
+            --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg-gradient);
+            min-height: 100vh;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar {
+            background: rgba(255, 255, 255, 0.1) !important;
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-link {
+            color: white !important;
+            font-weight: 500;
+        }
+
+        .nav-link:hover {
+            color: var(--light-green) !important;
+        }
+
+        .btn-primary {
+            background: var(--primary-green);
+            border: none;
+            border-radius: 10px;
+            padding: 10px 20px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background: var(--dark-green);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(45, 134, 83, 0.4);
+        }
+
+        .hero-section {
+            padding: 100px 0;
+            text-align: center;
+            color: white;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+
+        .stats-card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 15px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .stats-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .stats-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary-green);
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 15px 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--light-green);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+            margin: 0 auto 20px;
+        }
+
+        .esg-form {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin: 20px 0;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-control, .form-select {
+            border-radius: 10px;
+            border: 2px solid #e2e8f0;
+            padding: 12px 15px;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus, .form-select:focus {
+            border-color: var(--light-green);
+            box-shadow: 0 0 0 0.2rem rgba(74, 222, 128, 0.25);
+        }
+
+        .activity-card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 10px 0;
+            border-left: 5px solid var(--primary-green);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .activity-card:hover {
+            transform: translateX(10px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+        }
+
+        .badge-environmental { background: #059669; }
+        .badge-social { background: #dc2626; }
+        .badge-governance { background: #7c3aed; }
+
+        .blockchain-hash {
+            font-family: 'Courier New', monospace;
+            background: #f8fafc;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            color: #64748b;
+            border: 1px solid #e2e8f0;
+        }
+
+        .dashboard-metric {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            margin: 10px 0;
+        }
+
+        .metric-value {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--primary-green);
+        }
+
+        .tab-content {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-pills .nav-link {
+            color: #64748b;
+            border-radius: 10px;
+            padding: 12px 20px;
+            margin: 0 5px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-pills .nav-link.active {
+            background: var(--primary-green);
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .hero-title { font-size: 2.5rem; }
+            .hero-subtitle { font-size: 1.1rem; }
+            .stats-card { margin: 10px 0; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#">
+                <i class="fas fa-leaf me-2"></i>Green Ledger
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#dashboard">Dashboard</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#companies">Companies</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#esg-activities">ESG Activities</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#reports">Reports</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section" id="home">
+        <div class="container">
+            <h1 class="hero-title">🌿 Green Ledger</h1>
+            <p class="hero-subtitle">
+                Blockchain-Backed ESG Compliance & Reporting Tool<br>
+                <strong>for Pakistani Corporates</strong>
+            </p>
+            <button class="btn btn-primary btn-lg me-3" onclick="showSection('dashboard')">
+                <i class="fas fa-chart-line me-2"></i>View Dashboard
+            </button>
+            <button class="btn btn-outline-light btn-lg" onclick="showSection('companies')">
+                <i class="fas fa-building me-2"></i>Manage Companies
+            </button>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container my-5" style="margin-top: 100px !important;">
+        
+        <!-- Dashboard Section -->
+        <div id="dashboard-section" class="section-content">
+            <div class="glass-card p-4 mb-4">
+                <h2 class="text-primary mb-4"><i class="fas fa-chart-line me-2"></i>ESG Dashboard</h2>
+                
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="dashboard-metric">
+                            <div class="metric-value" id="total-companies">0</div>
+                            <div class="text-muted">Companies</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="dashboard-metric">
+                            <div class="metric-value" id="total-activities">0</div>
+                            <div class="text-muted">ESG Activities</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="dashboard-metric">
+                            <div class="metric-value" id="avg-esg-score">0</div>
+                            <div class="text-muted">Avg ESG Score</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="dashboard-metric">
+                            <div class="metric-value" id="verified-activities">0</div>
+                            <div class="text-muted">Verified</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mt-4">
+                    <div class="col-md-6">
+                        <canvas id="esgCategoryChart" width="400" height="200"></canvas>
+                    </div>
+                    <div class="col-md-6">
+                        <canvas id="monthlyTrendChart" width="400" height="200"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Companies Section -->
+        <div id="companies-section" class="section-content" style="display: none;">
+            <div class="glass-card p-4 mb-4">
+                <h2 class="text-primary mb-4"><i class="fas fa-building me-2"></i>Company Management</h2>
+                
+                <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addCompanyModal">
+                    <i class="fas fa-plus me-2"></i>Add New Company
+                </button>
+                
+                <div id="companies-list">
+                    <!-- Companies will be loaded here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- ESG Activities Section -->
+        <div id="esg-activities-section" class="section-content" style="display: none;">
+            <div class="glass-card p-4 mb-4">
+                <h2 class="text-primary mb-4"><i class="fas fa-leaf me-2"></i>ESG Activities</h2>
+                
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <select class="form-select" id="filter-category">
+                            <option value="">All Categories</option>
+                            <option value="environmental">Environmental</option>
+                            <option value="social">Social</option>
+                            <option value="governance">Governance</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addActivityModal">
+                            <i class="fas fa-plus me-2"></i>Add ESG Activity
+                        </button>
+                    </div>
+                </div>
+                
+                <div id="activities-list">
+                    <!-- Activities will be loaded here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Reports Section -->
+        <div id="reports-section" class="section-content" style="display: none;">
+            <div class="glass-card p-4 mb-4">
+                <h2 class="text-primary mb-4"><i class="fas fa-file-alt me-2"></i>ESG Reports</h2>
+                
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <select class="form-select" id="report-company">
+                            <option value="">Select Company</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <select class="form-select" id="report-framework">
+                            <option value="GRI">GRI Standards</option>
+                            <option value="SASB">SASB</option>
+                            <option value="TCFD">TCFD</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <input type="text" class="form-control" id="report-period" placeholder="Period (e.g., 2024)" value="2024">
+                    </div>
+                    <div class="col-md-2">
+                        <button class="btn btn-primary w-100" onclick="generateReport()">
+                            <i class="fas fa-chart-bar me-2"></i>Generate
+                        </button>
+                    </div>
+                </div>
+                
+                <div id="reports-list">
+                    <!-- Reports will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Company Modal -->
+    <div class="modal fade" id="addCompanyModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"><i class="fas fa-building me-2"></i>Add New Company</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="company-form">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Company Name *</label>
+                                <input type="text" class="form-control" name="name" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Industry *</label>
+                                <select class="form-select" name="industry" required>
+                                    <option value="">Select Industry</option>
+                                    <option value="textiles">Textiles</option>
+                                    <option value="cement">Cement</option>
+                                    <option value="banking">Banking</option>
+                                    <option value="manufacturing">Manufacturing</option>
+                                    <option value="energy">Energy</option>
+                                    <option value="technology">Technology</option>
+                                    <option value="pharmaceuticals">Pharmaceuticals</option>
+                                    <option value="food">Food & Beverages</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Location</label>
+                                <input type="text" class="form-control" name="location" placeholder="e.g., Karachi, Lahore">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Company Size</label>
+                                <select class="form-select" name="size">
+                                    <option value="small">Small (1-50 employees)</option>
+                                    <option value="medium">Medium (51-250 employees)</option>
+                                    <option value="large">Large (251+ employees)</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">ESG Framework</label>
+                            <select class="form-select" name="esg_framework">
+                                <option value="GRI">GRI Standards</option>
+                                <option value="SASB">SASB</option>
+                                <option value="TCFD">TCFD</option>
+                                <option value="Custom">Custom Framework</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Description</label>
+                            <textarea class="form-control" name="description" rows="3" placeholder="Brief company description..."></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" onclick="addCompany()">
+                        <i class="fas fa-save me-2"></i>Save Company
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Activity Modal -->
+    <div class="modal fade" id="addActivityModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"><i class="fas fa-leaf me-2"></i>Add ESG Activity</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="activity-form">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Company *</label>
+                                <select class="form-select" name="company_id" required id="activity-company-select">
+                                    <option value="">Select Company</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Category *</label>
+                                <select class="form-select" name="category" required>
+                                    <option value="">Select Category</option>
+                                    <option value="environmental">Environmental</option>
+                                    <option value="social">Social</option>
+                                    <option value="governance">Governance</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Activity Title *</label>
+                            <input type="text" class="form-control" name="title" required placeholder="e.g., Solar Panel Installation">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Description *</label>
+                            <textarea class="form-control" name="description" rows="3" required placeholder="Detailed description of the ESG activity..."></textarea>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">Impact Score (1-10)</label>
+                                <input type="number" class="form-control" name="impact_score" min="1" max="10" value="5">
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">Investment Amount (PKR)</label>
+                                <input type="number" class="form-control" name="investment_amount" placeholder="0">
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">Activity Date</label>
+                                <input type="date" class="form-control" name="activity_date" value="2024-01-01">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Metrics & KPIs</label>
+                            <textarea class="form-control" name="metrics" rows="2" placeholder="e.g., CO2 reduction: 500 tons/year, Energy savings: 25%"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" onclick="addActivity()">
+                        <i class="fas fa-save me-2"></i>Save Activity
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Global variables
+        let companies = [];
+        let activities = [];
+        let reports = [];
+
+        // Initialize app
+        document.addEventListener('DOMContentLoaded', function() {
+            loadData();
+            showSection('dashboard');
+        });
+
+        // Navigation
+        function showSection(sectionName) {
+            // Hide all sections
+            document.querySelectorAll('.section-content').forEach(section => {
+                section.style.display = 'none';
+            });
+            
+            // Show selected section
+            document.getElementById(sectionName + '-section').style.display = 'block';
+            
+            // Load section-specific data
+            switch(sectionName) {
+                case 'dashboard':
+                    loadDashboard();
+                    break;
+                case 'companies':
+                    loadCompanies();
+                    break;
+                case 'esg-activities':
+                    loadActivities();
+                    break;
+                case 'reports':
+                    loadReports();
+                    break;
+            }
+        }
+
+        // Load initial data
+        async function loadData() {
+            try {
+                const [companiesRes, activitiesRes] = await Promise.all([
+                    fetch('/api/companies'),
+                    fetch('/api/esg-activities')
+                ]);
+                
+                companies = await companiesRes.json();
+                activities = await activitiesRes.json();
+                
+                updateSelects();
+            } catch (error) {
+                console.error('Error loading data:', error);
+                showAlert('Error loading data', 'danger');
+            }
+        }
+
+        // Update select dropdowns
+        function updateSelects() {
+            const companySelects = [
+                'filter-company', 
+                'report-company', 
+                'activity-company-select'
+            ];
+            
+            companySelects.forEach(selectId => {
+                const select = document.getElementById(selectId);
+                if (select) {
+                    const currentValue = select.value;
+                    select.innerHTML = selectId.includes('filter') || selectId.includes('report') ? 
+                        '<option value="">All Companies</option>' : 
+                        '<option value="">Select Company</option>';
+                    
+                    companies.forEach(company => {
+                        const option = document.createElement('option');
+                        option.value = company.id;
+                        option.textContent = company.name;
+                        select.appendChild(option);
+                    });
+                    
+                    select.value = currentValue;
+                }
+            });
+        }
+
+        // Dashboard functions
+        async function loadDashboard() {
+            try {
+                // Update metrics
+                document.getElementById('total-companies').textContent = companies.length;
+                document.getElementById('total-activities').textContent = activities.length;
+                document.getElementById('verified-activities').textContent = activities.filter(a => a.hash).length;
+                
+                // Calculate average ESG score
+                let totalScore = 0;
+                let companiesWithActivities = 0;
+                
+                companies.forEach(company => {
+                    const companyActivities = activities.filter(a => a.company_id === company.id);
+                    if (companyActivities.length > 0) {
+                        totalScore += calculateESGScore(companyActivities);
+                        companiesWithActivities++;
+                    }
+                });
+                
+                const avgScore = companiesWithActivities > 0 ? Math.round(totalScore / companiesWithActivities) : 0;
+                document.getElementById('avg-esg-score').textContent = avgScore;
+                
+                // Create charts
+                createCategoryChart();
+                createTrendChart();
+                
+            } catch (error) {
+                console.error('Error loading dashboard:', error);
+            }
+        }
+
+        function calculateESGScore(activities) {
+            if (!activities.length) return 0;
+            
+            const weights = { environmental: 0.4, social: 0.3, governance: 0.3 };
+            let totalScore = 0;
+            let categoryScores = { environmental: 0, social: 0, governance: 0 };
+            
+            activities.forEach(activity => {
+                categoryScores[activity.category] += activity.impact_score || 5;
+            });
+            
+            Object.keys(categoryScores).forEach(category => {
+                const categoryActivities = activities.filter(a => a.category === category);
+                if (categoryActivities.length > 0) {
+                    totalScore += (categoryScores[category] / categoryActivities.length) * weights[category];
+                }
+            });
+            
+            return Math.min(Math.round(totalScore), 100);
+        }
+
+        function createCategoryChart() {
+            const ctx = document.getElementById('esgCategoryChart').getContext('2d');
+            
+            const categoryData = {
+                environmental: activities.filter(a => a.category === 'environmental').length,
+                social: activities.filter(a => a.category === 'social').length,
+                governance: activities.filter(a => a.category === 'governance').length
+            };
+            
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Environmental', 'Social', 'Governance'],
+                    datasets: [{
+                        data: [categoryData.environmental, categoryData.social, categoryData.governance],
+                        backgroundColor: ['#059669', '#dc2626', '#7c3aed'],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'ESG Activities by Category'
+                        },
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+        }
+
+        function createTrendChart() {
+            const ctx = document.getElementById('monthlyTrendChart').getContext('2d');
+            
+            // Get monthly trend data
+            const monthlyData = {};
+            activities.forEach(activity => {
+                const month = new Date(activity.created_at).toISOString().slice(0, 7);
+                monthlyData[month] = (monthlyData[month] || 0) + 1;
+            });
+            
+            const labels = Object.keys(monthlyData).sort();
+            const data = labels.map(label => monthlyData[label]);
+            
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'ESG Activities',
+                        data: data,
+                        borderColor: '#2d8653',
+                        backgroundColor: 'rgba(45, 134, 83, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Monthly ESG Activity Trend'
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+
+        // Companies functions
+        function loadCompanies() {
+            const container = document.getElementById('companies-list');
+            container.innerHTML = '';
+            
+            if (companies.length === 0) {
+                container.innerHTML = '<div class="text-center text-muted py-5">No companies registered yet. Add your first company!</div>';
+                return;
+            }
+            
+            companies.forEach(company => {
+                const companyActivities = activities.filter(a => a.company_id === company.id);
+                const esgScore = calculateESGScore(companyActivities);
+                
+                const card = document.createElement('div');
+                card.className = 'feature-card mb-3';
+                card.innerHTML = `
+                    <div class="row align-items-center">
+                        <div class="col-md-8">
+                            <h5 class="mb-2">${company.name}</h5>
+                            <p class="text-muted mb-2">${company.industry} • ${company.location || 'Pakistan'}</p>
+                            <p class="mb-0">${company.description || 'No description available'}</p>
+                        </div>
+                        <div class="col-md-4 text-end">
+                            <div class="mb-2">
+                                <span class="badge bg-primary">ESG Score: ${esgScore}</span>
+                            </div>
+                            <div class="mb-2">
+                                <span class="badge bg-secondary">${companyActivities.length} Activities</span>
+                            </div>
+                            <div>
+                                <span class="badge bg-success">${company.esg_framework}</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        async function addCompany() {
+            const form = document.getElementById('company-form');
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData);
+            
+            try {
+                const response = await fetch('/api/companies', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                
+                if (response.ok) {
+                    const newCompany = await response.json();
+                    companies.push(newCompany);
+                    updateSelects();
+                    loadCompanies();
+                    form.reset();
+                    bootstrap.Modal.getInstance(document.getElementById('addCompanyModal')).hide();
+                    showAlert('Company added successfully!', 'success');
+                } else {
+                    throw new Error('Failed to add company');
+                }
+            } catch (error) {
+                console.error('Error adding company:', error);
+                showAlert('Error adding company', 'danger');
+            }
+        }
+
+        // Activities functions
+        function loadActivities() {
+            const container = document.getElementById('activities-list');
+            container.innerHTML = '';
+            
+            let filteredActivities = [...activities];
+            
+            // Apply filters
+            const companyFilter = document.getElementById('filter-company').value;
+            const categoryFilter = document.getElementById('filter-category').value;
+            
+            if (companyFilter) {
+                filteredActivities = filteredActivities.filter(a => a.company_id === companyFilter);
+            }
+            
+            if (categoryFilter) {
+                filteredActivities = filteredActivities.filter(a => a.category === categoryFilter);
+            }
+            
+            if (filteredActivities.length === 0) {
+                container.innerHTML = '<div class="text-center text-muted py-5">No ESG activities found. Add your first activity!</div>';
+                return;
+            }
+            
+            filteredActivities.forEach(activity => {
+                const company = companies.find(c => c.id === activity.company_id);
+                const card = document.createElement('div');
+                card.className = 'activity-card';
+                card.innerHTML = `
+                    <div class="d-flex justify-content-between align-items-start mb-2">
+                        <h6 class="mb-0">${activity.title}</h6>
+                        <span class="badge badge-${activity.category}">${activity.category.toUpperCase()}</span>
+                    </div>
+                    <p class="text-muted mb-2">${company ? company.name : 'Unknown Company'}</p>
+                    <p class="mb-2">${activity.description}</p>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <small class="text-muted">
+                                <i class="fas fa-star me-1"></i>Impact Score: ${activity.impact_score || 'N/A'}/10
+                            </small>
+                        </div>
+                        <div class="col-md-6 text-end">
+                            <small class="text-muted">
+                                <i class="fas fa-calendar me-1"></i>${new Date(activity.created_at).toLocaleDateString()}
+                            </small>
+                        </div>
+                    </div>
+                    ${activity.hash ? `
+                        <div class="mt-2">
+                            <small class="text-muted d-block mb-1">Blockchain Hash:</small>
+                            <div class="blockchain-hash">${activity.hash.substring(0, 32)}...</div>
+                        </div>
+                    ` : ''}
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        async function addActivity() {
+            const form = document.getElementById('activity-form');
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData);
+            
+            // Convert numeric fields
+            if (data.impact_score) data.impact_score = parseInt(data.impact_score);
+            if (data.investment_amount) data.investment_amount = parseFloat(data.investment_amount);
+            
+            try {
+                const response = await fetch('/api/esg-activities', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                
+                if (response.ok) {
+                    const newActivity = await response.json();
+                    activities.push(newActivity);
+                    loadActivities();
+                    form.reset();
+                    bootstrap.Modal.getInstance(document.getElementById('addActivityModal')).hide();
+                    showAlert('ESG Activity added successfully!', 'success');
+                } else {
+                    throw new Error('Failed to add activity');
+                }
+            } catch (error) {
+                console.error('Error adding activity:', error);
+                showAlert('Error adding ESG activity', 'danger');
+            }
+        }
+
+        // Reports functions
+        function loadReports() {
+            // This would load existing reports - for now just show the generation interface
+        }
+
+        async function generateReport() {
+            const companyId = document.getElementById('report-company').value;
+            const framework = document.getElementById('report-framework').value;
+            const period = document.getElementById('report-period').value;
+            
+            if (!companyId) {
+                showAlert('Please select a company', 'warning');
+                return;
+            }
+            
+            try {
+                const response = await fetch(`/api/reports/${companyId}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ framework, period })
+                });
+                
+                if (response.ok) {
+                    const report = await response.json();
+                    displayReport(report);
+                    showAlert('Report generated successfully!', 'success');
+                } else {
+                    throw new Error('Failed to generate report');
+                }
+            } catch (error) {
+                console.error('Error generating report:', error);
+                showAlert('Error generating report', 'danger');
+            }
+        }
+
+        function displayReport(report) {
+            const container = document.getElementById('reports-list');
+            
+            const reportCard = document.createElement('div');
+            reportCard.className = 'glass-card p-4 mt-3';
+            reportCard.innerHTML = `
+                <h4 class="text-primary mb-3">
+                    <i class="fas fa-file-alt me-2"></i>${report.framework} ESG Report - ${report.company_name}
+                </h4>
+                <div class="row mb-3">
+                    <div class="col-md-3">
+                        <div class="text-center">
+                            <div class="metric-value">${report.esg_score}</div>
+                            <div class="text-muted">ESG Score</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="text-center">
+                            <div class="metric-value">${report.total_activities}</div>
+                            <div class="text-muted">Total Activities</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="text-center">
+                            <div class="metric-value">${report.activities_by_category.environmental}</div>
+                            <div class="text-muted">Environmental</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="text-center">
+                            <div class="metric-value">${report.activities_by_category.social + report.activities_by_category.governance}</div>
+                            <div class="text-muted">Social + Governance</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <small class="text-muted">Report Hash:</small>
+                    <div class="blockchain-hash">${report.hash}</div>
+                </div>
+                <div class="text-muted">
+                    <small>Generated on ${new Date(report.generated_at).toLocaleString()} | Period: ${report.period} | Framework: ${report.framework}</small>
+                </div>
+            `;
+            
+            container.insertBefore(reportCard, container.firstChild);
+        }
+
+        // Utility functions
+        function showAlert(message, type = 'info') {
+            const alert = document.createElement('div');
+            alert.className = `alert alert-${type} alert-dismissible fade show position-fixed`;
+            alert.style.cssText = 'top: 20px; right: 20px; z-index: 9999; min-width: 300px;';
+            alert.innerHTML = `
+                ${message}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            `;
+            
+            document.body.appendChild(alert);
+            
+            setTimeout(() => {
+                if (alert.parentNode) {
+                    alert.parentNode.removeChild(alert);
+                }
+            }, 5000);
+        }
+
+        // Event listeners
+        document.getElementById('filter-company').addEventListener('change', loadActivities);
+        document.getElementById('filter-category').addEventListener('change', loadActivities);
+
+        // Navigation click handlers
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const section = e.target.getAttribute('href').substring(1);
+                showSection(section);
+            });
+        });
+    </script>
+</body>
+</html>select" id="filter-company">
+                            <option value="">All Companies</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <select class="form-
